@@ -13,7 +13,8 @@ type Sequence struct {
 }
 
 /**
- * Tick method.
+ * Tick method.遍历子节点，子节点SUCCESS就执行下一个，最后返回SUCCESS，否则返回不成功的子节点状态。
+类似and 语义
  * @method tick
  * @param {b3.Tick} tick A tick instance.
  * @return {Constant} A state constant.

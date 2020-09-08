@@ -10,7 +10,8 @@ type Priority struct {
 }
 
 /**
- * Tick method.
+ * Tick method.遍历子节点，子节点FAILURE就执行下一个，最后返回FAILURE，否则返回非失败的子节点状态
+类似 or 语义，只会选择一个成功节点
  * @method tick
  * @param {b3.Tick} tick A tick instance.
  * @return {Constant} A state constant.
