@@ -14,6 +14,7 @@ type SubTree struct {
 func (this *SubTree) Initialize(setting *BTNodeCfg) {
 	this.Action.Initialize(setting)
 }
+
 /**
  *执行子树
  *使用sTree.Tick(tar, tick.Blackboard)的方法会导致每个树有自己的tick。
@@ -24,7 +25,7 @@ func (this *SubTree) OnTick(tick *Tick) b3.Status {
 
 	//使用子树，必须先SetSubTreeLoadFunc
 	//子树可能没有加载上来，所以要延迟加载执行
-	sTree := subTreeLoadFunc(this.GetName())
+	sTree := subTreeLoadFunc(this.GetName(), tick)
 	if nil == sTree {
 		return b3.ERROR
 	}
@@ -42,14 +43,13 @@ func (this *SubTree) OnTick(tick *Tick) b3.Status {
 	return ret
 }
 
-func (this *SubTree) String() string  {
-	return "SBT_"+this.GetTitle()
+func (this *SubTree) String() string {
+	return "SBT_" + this.GetTitle()
 }
 
-
-var subTreeLoadFunc func(string) *BehaviorTree
+var subTreeLoadFunc func(string string, tick *Tick) *BehaviorTree
 
 //获取子树的方法
-func SetSubTreeLoadFunc(f func(string) *BehaviorTree) {
+func SetSubTreeLoadFunc(f func(string string, tick *Tick) *BehaviorTree) {
 	subTreeLoadFunc = f
 }
